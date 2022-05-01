@@ -1,8 +1,9 @@
 mod sorts;
+use colored::Colorize;
 use::text_io::scan;
 
 fn main() {
-    println!("Choose a program from 'clui' to run");
+    println!("Choose a program from '{}' to run","clui".bold().underline());
     println!("1. Sorting algorithms visualization");
     println!("2. Physics engine");
     println!("3. Something else in command line graphic ui");
@@ -15,10 +16,10 @@ fn main() {
         0 => std::process::exit(0x0100),
         _ => main()   
     }
-    sorts::start();
+    //sorts::start();
 }
 
 fn not_implemented_msg() {
-    println!("not implemented yet sorry :(");
+    println!("{}","not implemented yet sorry :(".red());
     main();
 }
