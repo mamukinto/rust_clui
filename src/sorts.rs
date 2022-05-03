@@ -1,5 +1,7 @@
+use crate::utils;
 use::text_io::scan;
 use colored::*;
+fn main(){}
 pub fn start() {
     let brightness = "`^,:;Il!i~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
     let curr_brightness = 0;
@@ -7,15 +9,18 @@ pub fn start() {
     let mut height = 30;
     let mut amount = 27;
     let mut update_interval_in_ms = 250;
-     //show_canvas(&canvas);
-   //draw_rect(&mut canvas,10,10,3,3);
-    //show_canvas(&canvas);
 
-    //println!("{:?}",generate_random_vec());
     loop {
         println!("Choose sorting algorithm:");
         println!("1. Bubble sort");
         println!("2. Merge sort");
+        println!("77. Quick sort");
+        println!("4. Insert sort");
+        println!("5. Selection sort ");
+        println!("6. Heap sort ");
+        println!("7. Tree sort");
+        println!("8. random sort");
+        println!("9. Cocktail sort");
         println!("3. Random data");
         println!("0. Settings");
         let choice: i32;
@@ -90,41 +95,21 @@ fn get_new_width(w: usize) -> usize {
     nw
 }
 
-fn clear_canvas(canvas : &mut Vec<Vec<char>>) {
-    for i in 0..canvas.len() {
-        for j in 0..canvas[i].len() {
-            canvas[i][j] = '`';
-        }
-    }
-}
-// fn draw_random_data(canvas: &mut Vec<Vec<char>>) -> Vec<usize>{
-//     clear_canvas(canvas);
-//     let data = generate_random_vec();
-//     let mut x = 0;
-//     for point in data {
-//         let zxc = point.try_into().unwrap();
-//         draw_rect(canvas, 30-zxc, x, 2,zxc);
-//         x = x + 3;
-//     }
-//     show_canvas(&canvas);
-//     data
-// }
-
 use core::time;
 use std::{thread};
 
 use rand::Rng;
-//use timer::oneshot_ms;
+
 
 fn draw_data(canvas: &mut Vec<Vec<char>>,data: &Vec<usize>) {
-    clear_canvas(canvas);
+    utils::clear_canvas(canvas);
     let mut x = 0;
     let h = canvas.len();
     for point in data {
-        draw_rect(canvas, h-point, x, 2,*point);
+        utils::draw_rect(canvas, h-point, x, 2,*point,'@');
         x = x + 3;
     }
-    show_canvas(&canvas);
+    utils::show_canvas(&canvas);
 }
 
 fn is_sorted(data: &Vec<usize>) -> bool {
@@ -135,16 +120,6 @@ fn is_sorted(data: &Vec<usize>) -> bool {
     }
     true
 }
-
-
-
-    // test the example with `cargo run --example most_simple`
-    // fn zxc() {
-    //     // TADAA!
-    //     println!("{} {} !", "it".green(), "works".blue().bold());
-    // }
-
-
 
 fn animation_loop(canvas : &mut Vec<Vec<char>>,choice: i32,amount: i32,update_interval_in_ms: u64) {
     let mut data = generate_random_vec(amount,canvas.len());
@@ -185,24 +160,4 @@ fn generate_random_vec(amount: i32,h: usize) -> Vec<usize> {
     let vals: Vec<usize> = (0..amount).map(|_| rng.gen_range(0,h)).collect();
 
     vals
-}   
-
-// fn bubble_sort_step(data: &mut Vec<i32>) {
-    
-// }
-
-fn show_canvas(canvas: &Vec<Vec<char>>) {
-    print!("\x1B[2J\x1B[1;1H");
-    canvas.iter().for_each(|it| {
-        //println!("{:?}", it);
-        println!("{}", it.iter().fold(String::new(), |acc, &num| acc + &num.to_string() + ""))
-    });
-}
-
-fn draw_rect(canvas: &mut Vec<Vec<char>>, x: usize, y: usize, height: usize, width: usize) {
-    for horizontal in x..(x + width) {
-        for vertical in y..(y + height) {
-            canvas[horizontal][vertical] = '@';
-        }
-    }
 }
